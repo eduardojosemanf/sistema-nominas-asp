@@ -54,7 +54,15 @@
                 Response.Write "<td>" & rsEmp("categoria") & "</td>"
                 Response.Write "<td>" & FormatCurrency(rsEmp("tarifa_hora"), 2) & "</td>"
                 Response.Write "<td>" & FormatCurrency(rsEmp("tarifa_jornada"), 2) & "</td>"
-                Response.Write "<td>" & IIf(rsEmp("activo"), "Activo", "Inactivo") & "</td>"
+                Response.Write "<td>"
+                If IsNull(rsEmp("activo")) Then
+                    Response.Write "Inactivo"
+                ElseIf CBool(rsEmp("activo")) Then
+                    Response.Write "Activo"
+                Else
+                    Response.Write "Inactivo"
+                End If
+                Response.Write "</td>"
                 Response.Write "<td>"
                 Response.Write "<a href='empleado_form.asp?action=edit&id=" & rsEmp("id") & "' class='btn btn-sm btn-warning'>Editar</a> "
                 Response.Write "<a href='empleado_form.asp?action=delete&id=" & rsEmp("id") & "' class='btn btn-sm btn-danger' onclick=\"return confirm('¿Eliminar empleado?')\">Eliminar</a>"
